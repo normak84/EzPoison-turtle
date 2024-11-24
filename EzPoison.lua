@@ -131,7 +131,7 @@ function EZP.ConfigFrame:ConfigureUI()
 	self:SetWidth(82)
 	self:SetHeight(48)
 	self:SetPoint("TOPLEFT",EZPcfg.PosX,EZPcfg.PosY)
-	self:SetMovable(1)
+	self:SetMovable(0)
 	self:EnableMouse(1)
 	self:RegisterForDrag("LeftButton")
 	self:SetScript("OnDragStart", EZP.ConfigFrame.StartMove)
@@ -559,6 +559,20 @@ function EZP:ConfigFubar()
 					EZP.ConfigFrame:SetPoint("TOPLEFT",EZPcfg.PosX,EZPcfg.PosY) 
 				end,
 				order = 9,
+			},
+			lock = {
+				type = 'toggle',
+				name = "Lock/Unlock Window",
+				desc = "Lock the window to prevent it from being moved, or unlock it to allow repositioning.",
+				get = function() end,
+				set = function ()
+					local isMovable = EZP.ConfigFrame:IsMovable() or false
+					local newMovableState = not isMovable
+					local statusMessage = newMovableState and "Window unlocked" or "Window locked"
+					EZP.ConfigFrame:SetMovable(newMovableState)
+					DEFAULT_CHAT_FRAME:AddMessage("Ezpoison: " .. statusMessage)
+				end,
+				order = 10,
 			},
 		},
 	}
