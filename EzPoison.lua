@@ -36,7 +36,8 @@ EZP.Work = 	{
 		[5] = "Mind-numbing Poison",
 		[6] = "Wound Poison",
 		[7] = "Corrosive Poison",
-		[8] = "Agitating Poison",
+		[8] = "Corrosive Poison II",
+		[9] = "Agitating Poison",
 	},
 	PoisonID = {
 		[1] = {6947,6949,6950,8926,8927,8928},
@@ -45,8 +46,9 @@ EZP.Work = 	{
 		[4] = 3776,
 		[5] = {5237,6951,9186},
 		[6] = {10918,10920,10921,10922},
-		[7] = {47408},
-		[8] = {65032},
+		[7] = 47408,
+		[8] = 47409,
+		[9] = 65032,
 	},
 	PoisonIcon = {
 		[1] = "Interface\\Icons\\Ability_Poisons",
@@ -56,11 +58,13 @@ EZP.Work = 	{
 		[5] = "Interface\\Icons\\Spell_Nature_NullifyDisease",
 		[6] = "Interface\\Icons\\Ability_PoisonSting",
 		[7] = "Interface\\Icons\\Spell_nature_corrosivebreath",
-		[8] = "Interface\\Icons\\spell_nature_nullifypoison",
+		[8] = "Interface\\Icons\\Spell_nature_corrosivebreath",
+		[9] = "Interface\\Icons\\spell_nature_nullifypoison",
+
 	}
 }
 
-local poisons_num = 8
+local poisons_num = 9
 
 -- local functions
 EZP.GetWeaponEnchantInfo = GetWeaponEnchantInfo
@@ -653,7 +657,7 @@ function EZP:GetInventoryID(hand)
 		if H == 4 then
 			for i=0,4 do -- i = bagsnr.
 				for j=1,18 do -- j = slotnr.
-					if GetContainerItemInfo(i, j) and H <= 7 and H >= 2 then
+					if GetContainerItemInfo(i, j) and H <= poisons_num and H >= 2 then
 						if gsub(GetContainerItemLink(i,j),"^.*%[(.*)%].*$","%1") == EZP.Work.Poison[3] then return {i,j,"",EZP.Work.PoisonID[3],H-1} end
 					end
 				end
@@ -664,8 +668,34 @@ function EZP:GetInventoryID(hand)
 		if H == 5 then
 			for i=0,4 do -- i = bagsnr.
 				for j=1,18 do -- j = slotnr.
-					if GetContainerItemInfo(i, j) and H <= 7 and H >= 2 then
-						if gsub(GetContainerItemLink(i,j),"^.*%[(.*)%].*$","%1") == EZP.Work.Poison[3].." II" then return {i,j,"",EZP.Work.PoisonID[4],H-1} end
+					if GetContainerItemInfo(i, j) and H <= poisons_num and H >= 2 then
+						if gsub(GetContainerItemLink(i,j),"^.*%[(.*)%].*$","%1") == EZP.Work.Poison[4] then return {i,j,"",EZP.Work.PoisonID[4],H-1} end
+					end
+				end
+			end
+		end
+
+		-- if corrosive 1
+		if H == 8 then
+			for i=0,4 do -- i = bagsnr.
+				for j=1,18 do -- j = slotnr.
+					if GetContainerItemInfo(i, j) and H <= poisons_num and H >= 2 then
+						if gsub(GetContainerItemLink(i,j),"^.*%[(.*)%].*$","%1") == EZP.Work.Poison[7] then
+							return {i,j,"",EZP.Work.PoisonID[7],H-1}
+						end
+					end
+				end
+			end
+		end
+
+		-- if corrosive 2
+		if H == 9 then
+			for i=0,4 do -- i = bagsnr.
+				for j=1,18 do -- j = slotnr.
+					if GetContainerItemInfo(i, j) and H <= poisons_num and H >= 2 then
+						if gsub(GetContainerItemLink(i,j),"^.*%[(.*)%].*$","%1") == EZP.Work.Poison[8] then
+							return {i,j,"",EZP.Work.PoisonID[8],H-1} 
+						end
 					end
 				end
 			end
