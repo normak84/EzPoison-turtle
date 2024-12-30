@@ -570,39 +570,80 @@ function EZP:ConfigFubar()
 end
 
 function EZP:UpdateTexture()
-   EZP.Work.slotInfo[1],EZP.Work.slotInfo[2],EZP.Work.slotInfo[3],EZP.Work.slotInfo[4],EZP.Work.slotInfo[5],EZP.Work.slotInfo[6],EZP.Work.slotInfo[7],EZP.Work.slotInfo[8] = EZP.GetWeaponEnchantInfo()
-	
-	if EZP.Work.slotInfo[1] then
-		EZP.Work.ID = UIDropDownMenu_GetSelectedID(EZP.ConfigFrame.MainHand.BorderDropdown)-1
-		for i=1,20 do
-			EZP.Parser:SetOwner(UIParent, "ANCHOR_NONE")
-			EZP.Work.ToolTipBuff = EZP.Parser:SetInventoryItem("player", 16)
-			if not EZP.Work.ToolTipBuff or not getglobal(EZP.Parser:GetName().."TextLeft"..i):GetText() or EZP.Work.ID > 8 or EZP.Work.ID < 1 then EZP.Parser:Hide(); EZP.ConfigFrame.MainHand:SetAlpha(0.2) break end
-			if string.find(gsub(string.lower(getglobal(EZP.Parser:GetName().."TextLeft"..i):GetText()),"-",""),gsub(string.lower(EZP.Work.Poison[EZP.Work.ID]),"-","")) then
-				EZP.ConfigFrame.MainHand:SetAlpha(1)
-				break
-			end
-		end
-	else
-		EZP.ConfigFrame.MainHand:SetAlpha(0.2)
-	end
-	
-	if EZP.Work.slotInfo[4] then
-		EZP.Work.ID = UIDropDownMenu_GetSelectedID(EZP.ConfigFrame.OffHand.BorderDropdown)-1
-		for i=1,20 do
-			EZP.Parser:SetOwner(UIParent, "ANCHOR_NONE")
-			EZP.Work.ToolTipBuff = EZP.Parser:SetInventoryItem("player", 17)
-			if not EZP.Work.ToolTipBuff or not getglobal(EZP.Parser:GetName().."TextLeft"..i):GetText() or EZP.Work.ID > 8 or EZP.Work.ID < 1 then EZP.Parser:Hide(); EZP.ConfigFrame.OffHand:SetAlpha(0.2) break end
-			if string.find(gsub(string.lower(getglobal(EZP.Parser:GetName().."TextLeft"..i):GetText()),"-",""),gsub(string.lower(EZP.Work.Poison[EZP.Work.ID]),"-","")) then
-				EZP.ConfigFrame.OffHand:SetAlpha(1)
-				break
-			end
-		end
-	else
-		EZP.ConfigFrame.OffHand:SetAlpha(0.2)
-	end
-	
-	EZP:UpdatePoisonCount()
+    EZP.Work.slotInfo[1], EZP.Work.slotInfo[2], EZP.Work.slotInfo[3], EZP.Work.slotInfo[4], EZP.Work.slotInfo[5], EZP.Work
+        .slotInfo[6], EZP.Work.slotInfo[7], EZP.Work.slotInfo[8] = EZP.GetWeaponEnchantInfo()
+
+    local noOfPoisons = 9
+
+    if EZP.Work.slotInfo[1] then
+        EZP.Work.ID = UIDropDownMenu_GetSelectedID(EZP.ConfigFrame.MainHand.BorderDropdown) - 1
+
+        local poisonName = EZP.Work.Poison[EZP.Work.ID]
+
+        -- Corrosive Poison II
+        if poisonName == EZP.Work.Poison[8] then
+            poisonName = EZP.Work.Poison[7] -- Corrosive Poison
+        end
+
+        -- Crippling Poison II
+        if poisonName == EZP.Work.Poison[4] then
+            poisonName = EZP.Work.Poison[3] -- Crippling Poison
+        end
+
+        for i = 1, 20 do
+            EZP.Parser:SetOwner(UIParent, "ANCHOR_NONE")
+            EZP.Work.ToolTipBuff = EZP.Parser:SetInventoryItem("player", 16)
+            if not EZP.Work.ToolTipBuff or not getglobal(EZP.Parser:GetName() .. "TextLeft" .. i):GetText() or
+                EZP.Work.ID > noOfPoisons or EZP.Work.ID < 1 then
+                EZP.Parser:Hide();
+                EZP.ConfigFrame.MainHand:SetAlpha(0.2)
+                break
+            end
+            if string.find(gsub(string.lower(getglobal(EZP.Parser:GetName() .. "TextLeft" .. i):GetText()), "-", ""),
+                gsub(string.lower(poisonName), "-", "")) then
+                EZP.ConfigFrame.MainHand:SetAlpha(1)
+                break
+            end
+        end
+    else
+        EZP.ConfigFrame.MainHand:SetAlpha(0.2)
+    end
+
+    if EZP.Work.slotInfo[4] then
+        EZP.Work.ID = UIDropDownMenu_GetSelectedID(EZP.ConfigFrame.OffHand.BorderDropdown) - 1
+
+        local poisonName = EZP.Work.Poison[EZP.Work.ID]
+
+        -- Corrosive Poison II
+        if poisonName == EZP.Work.Poison[8] then
+            poisonName = EZP.Work.Poison[7] -- Corrosive Poison
+        end
+
+        -- Crippling Poison II
+        if poisonName == EZP.Work.Poison[4] then
+            poisonName = EZP.Work.Poison[3] -- Crippling Poison
+        end
+
+        for i = 1, 20 do
+            EZP.Parser:SetOwner(UIParent, "ANCHOR_NONE")
+            EZP.Work.ToolTipBuff = EZP.Parser:SetInventoryItem("player", 17)
+            if not EZP.Work.ToolTipBuff or not getglobal(EZP.Parser:GetName() .. "TextLeft" .. i):GetText() or
+                EZP.Work.ID > noOfPoisons or EZP.Work.ID < 1 then
+                EZP.Parser:Hide();
+                EZP.ConfigFrame.OffHand:SetAlpha(0.2)
+                break
+            end
+            if string.find(gsub(string.lower(getglobal(EZP.Parser:GetName() .. "TextLeft" .. i):GetText()), "-", ""),
+                gsub(string.lower(poisonName), "-", "")) then
+                EZP.ConfigFrame.OffHand:SetAlpha(1)
+                break
+            end
+        end
+    else
+        EZP.ConfigFrame.OffHand:SetAlpha(0.2)
+    end
+
+    EZP:UpdatePoisonCount()
 end
 
 function EZP:UpdatePoisonCount()
