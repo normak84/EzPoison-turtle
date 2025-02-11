@@ -38,6 +38,7 @@ EZP.Work = 	{
 		[7] = "Corrosive Poison",
 		[8] = "Corrosive Poison II",
 		[9] = "Agitating Poison",
+		[10] = "Consecrated Sharpening Stone",
 	},
 	PoisonID = {
 		[1] = {6947,6949,6950,8926,8927,8928},
@@ -49,6 +50,7 @@ EZP.Work = 	{
 		[7] = 47408,
 		[8] = 47409,
 		[9] = 65032,
+		[10] = {23122},
 	},
 	PoisonIcon = {
 		[1] = "Interface\\Icons\\Ability_Poisons",
@@ -60,6 +62,7 @@ EZP.Work = 	{
 		[7] = "Interface\\Icons\\Spell_nature_corrosivebreath",
 		[8] = "Interface\\Icons\\Spell_nature_corrosivebreath",
 		[9] = "Interface\\Icons\\spell_nature_nullifypoison",
+		[10] = "Interface\\Icons\\Inv_stone_sharpeningstone_02",
 
 	}
 }
